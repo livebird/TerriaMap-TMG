@@ -22,3 +22,4 @@ deploy/packages/
 deploy/work/
 packages/
 pancake/
+*.rar

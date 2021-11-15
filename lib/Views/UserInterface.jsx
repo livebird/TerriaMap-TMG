@@ -217,7 +217,7 @@ export default function UserInterface(props) {
     }
   }
   window.selectBaseMap = function(mapJson) {
-    const baseMap = getBaseMap(mapJson.maptype);
+    const baseMap = getBaseMap(JSON.parse(mapJson.maptype));
     props.terria.mainViewer.setBaseMap(baseMap.mappable);
 
     if (baseMap.mappable) {
