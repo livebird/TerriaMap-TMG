@@ -209,19 +209,20 @@ export default function UserInterface(props) {
    * @param {} mapJson
    */
   function getBaseMap(maptype) {
-    const basemaps = props.viewState.terria.baseMaps;
+    const basemaps = props.viewState.terria.baseMapsModel.baseMapItems;
     for (let i = 0; i < basemaps.length; i++) {
-      if (basemaps[i].mappable.uniqueId == mapTypes[maptype]) {
+      if (basemaps[i].item.uniqueId == mapTypes[maptype]) {
         return basemaps[i];
       }
     }
   }
   window.selectBaseMap = function(mapJson) {
-    const baseMap = getBaseMap(JSON.parse(mapJson.maptype));
-    props.terria.mainViewer.setBaseMap(baseMap.mappable);
+    const tmpJSON = JSON.parse(mapJson);
+    const baseMap = getBaseMap(tmpJSON.maptype);
+    props.terria.mainViewer.setBaseMap(baseMap.item);
 
-    if (baseMap.mappable) {
-      const baseMapId = baseMap.mappable.uniqueId;
+    if (baseMap.item) {
+      const baseMapId = baseMap.item.uniqueId;
       if (baseMapId) {
         props.terria.setLocalProperty("basemap", baseMapId);
       }
