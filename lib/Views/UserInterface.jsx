@@ -55,7 +55,7 @@ export default function UserInterface(props) {
         props.terria.mainViewer._lastViewer.scene.map._events.click[0].fn = function(
           e
         ) {
-          console.log("new Pratik");
+          console.log("new location");
           newPickLocation(e);
           window.currentLatLong = {
             latitude: props.terria.leaflet.mouseCoords.latitude,
@@ -81,7 +81,7 @@ export default function UserInterface(props) {
         props.terria.mainViewer._lastViewer.scene.map._events.move[0].fn = function(
           e
         ) {
-          console.log("move Pratik");
+          console.log("move map");
           newPickLocation(e);
           window.currentLatLong = {
             latitude: props.terria.leaflet.mouseCoords.latitude,
@@ -107,7 +107,7 @@ export default function UserInterface(props) {
         props.terria.mainViewer._lastViewer.scene.map._events.zoomend[0].fn = function(
           e
         ) {
-          console.log("zoomend Pratik");
+          console.log("zoomend map");
           newPickLocation(e);
           window.currentLatLong = {
             latitude: props.terria.leaflet.mouseCoords.latitude,
@@ -167,18 +167,22 @@ export default function UserInterface(props) {
     });
   };
 
+  let myLocation = null
+
   /*
     Go to coordinate code
      */
-  props.terria.gotoCoordinate = function(gotoCoordinate) {
+  props.terria.gotoCoordinate = function(gotoCoordinate,that) {
+    myLocation = that
     window.gotoCoordinate = function(latitude, longitude) {
-      gotoCoordinate(latitude, longitude);
+      gotoCoordinate(latitude, longitude, myLocation);
     };
   };
 
-  props.terria.getCenterLatLong = function(getCenterLatLong) {
+  props.terria.getCenterLatLong = function(getCenterLatLong, that) {
+    myLocation = that
     window.getCenterLatLong = function() {
-      return getCenterLatLong();
+      return getCenterLatLong(myLocation);
     };
   };
 
