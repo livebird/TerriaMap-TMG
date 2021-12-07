@@ -169,8 +169,13 @@ export default function UserInterface(props) {
     .then((result) => {
       console.log("getLocation",result);
       result = JSON.parse(result);
-      if (result.coords !== undefined) {
-        zoomToLocation(result);
+      if (result.latitude !== undefined && result.longitude !== undefined) {
+        zoomToLocation({
+          coords: {
+            latitude: result.latitude,
+            longitude: result.longitude
+          }
+        });
       }else{
         alert("Error in getting location");
       }
