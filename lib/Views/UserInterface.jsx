@@ -154,17 +154,43 @@ export default function UserInterface(props) {
         //Show alert
       }
     };
-    $.ajax({
-      url: "./getLocation",
-      method: "POST",
-      success: function(result) {
-        if (result.isSuccess !== undefined && result.isSuccess === true) {
-          window.zoomToMyLocation(result.latitude, result.longitude);
-        } else if (result.message !== undefined) {
-          //Show alert
-        }
+
+    function post(url) {
+      return new Promise((resolve, reject) => {
+        const req = new XMLHttpRequest();
+        req.open('POST', url);
+        req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
+        req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+        req.send();
+      });
+    }
+
+    post("./getLocation")
+    .then((result) => {
+      console.log("getLocation",result);
+      result = JSON.parse(result);
+      if (result.coords !== undefined) {
+        zoomToLocation(result);
+      }else{
+        alert("Error in getting location");
       }
+    })
+    .catch((err) => {
+      // Do stuff on error...
+      alert("Error in getting location");
     });
+
+    // $.ajax({
+    //   url: "./getLocation",
+    //   method: "POST",
+    //   success: function(result) {
+    //     if (result.isSuccess !== undefined && result.isSuccess === true) {
+    //       window.zoomToMyLocation(result.latitude, result.longitude);
+    //     } else if (result.message !== undefined) {
+    //       //Show alert
+    //     }
+    //   }
+    // });
   };
 
   let myLocation = null
