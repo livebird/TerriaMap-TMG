@@ -158,32 +158,35 @@ export default function UserInterface(props) {
     function post(url) {
       return new Promise((resolve, reject) => {
         const req = new XMLHttpRequest();
-        req.open('POST', url);
-        req.onload = () => req.status === 200 ? resolve(req.response) : reject(Error(req.statusText));
-        req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+        req.open("POST", url);
+        req.onload = () =>
+          req.status === 200
+            ? resolve(req.response)
+            : reject(Error(req.statusText));
+        req.onerror = e => reject(Error(`Network Error: ${e}`));
         req.send();
       });
     }
 
     post("./getLocation")
-    .then((result) => {
-      console.log("getLocation",result);
-      result = JSON.parse(result);
-      if (result.latitude !== undefined && result.longitude !== undefined) {
-        zoomToLocation({
-          coords: {
-            latitude: result.latitude,
-            longitude: result.longitude
-          }
-        });
-      }else{
-        alert("Error in getting location");
-      }
-    })
-    .catch((err) => {
-      // Do stuff on error...
-      alert("Error in getting location");
-    });
+      .then(result => {
+        console.log("getLocation", result);
+        result = JSON.parse(result);
+        if (result.latitude !== undefined && result.longitude !== undefined) {
+          zoomToLocation({
+            coords: {
+              latitude: result.latitude,
+              longitude: result.longitude
+            }
+          });
+        } else {
+          alert("Error in getting location");
+        }
+      })
+      .catch(err => {
+        // Do stuff on error...
+        alert("Error in calling network call");
+      });
 
     // $.ajax({
     //   url: "./getLocation",
@@ -198,20 +201,20 @@ export default function UserInterface(props) {
     // });
   };
 
-  let myLocation = null
+  let myLocation = null;
 
   /*
     Go to coordinate code
      */
-  props.terria.gotoCoordinate = function(gotoCoordinate,that) {
-    myLocation = that
+  props.terria.gotoCoordinate = function(gotoCoordinate, that) {
+    myLocation = that;
     window.gotoCoordinate = function(latitude, longitude) {
       gotoCoordinate(latitude, longitude, myLocation);
     };
   };
 
   props.terria.getCenterLatLong = function(getCenterLatLong, that) {
-    myLocation = that
+    myLocation = that;
     window.getCenterLatLong = function() {
       return getCenterLatLong(myLocation);
     };
