@@ -1,17 +1,14 @@
-import {
-  MenuLeft,
-  Nav,
-  ExperimentalMenu
-} from "terriajs/lib/ReactViews/StandardUserInterface/customizable/Groups";
-import MenuItem from "terriajs/lib/ReactViews/StandardUserInterface/customizable/MenuItem";
 import PropTypes from "prop-types";
-import { action, runInAction, observable, computed } from "mobx";
 import React from "react";
-import RelatedMaps from "./RelatedMaps";
-import SplitPoint from "terriajs/lib/ReactViews/SplitPoint";
-import StandardUserInterface from "terriajs/lib/ReactViews/StandardUserInterface/StandardUserInterface.jsx";
+import RelatedMaps from "terriajs/lib/ReactViews/RelatedMaps/RelatedMaps";
+import {
+  ExperimentalMenu,
+  MenuLeft
+} from "terriajs/lib/ReactViews/StandardUserInterface/customizable/Groups";
+import { action, runInAction, observable, computed } from "mobx";
+import MenuItem from "terriajs/lib/ReactViews/StandardUserInterface/customizable/MenuItem";
+import StandardUserInterface from "terriajs/lib/ReactViews/StandardUserInterface/StandardUserInterface";
 import version from "../../version";
-
 import "./global.scss";
 
 // function loadAugmentedVirtuality(callback) {
@@ -30,6 +27,9 @@ import "./global.scss";
 // }
 
 export default function UserInterface(props) {
+  const relatedMaps = props.viewState.terria.configParameters.relatedMaps;
+  const aboutButtonHrefUrl =
+    props.viewState.terria.configParameters.aboutButtonHrefUrl;
   const aboutEnabled = props.terria.configParameters.aboutEnabled;
   const relatedMapsEnabled = props.terria.configParameters.relatedMapsEnabled;
 
@@ -42,7 +42,7 @@ export default function UserInterface(props) {
   }
 
   const eventArray = {
-    onClick: function(next) {
+    onClick: function (next) {
       if (
         props.terria.mainViewer._lastViewer &&
         props.terria.mainViewer._lastViewer.scene &&
@@ -52,23 +52,22 @@ export default function UserInterface(props) {
       ) {
         var newPickLocation =
           props.terria.mainViewer._lastViewer.scene.map._events.click[0].fn;
-        props.terria.mainViewer._lastViewer.scene.map._events.click[0].fn = function(
-          e
-        ) {
-          console.log("new location");
-          newPickLocation(e);
-          window.currentLatLong = {
-            latitude: props.terria.leaflet.mouseCoords.latitude,
-            longitude: props.terria.leaflet.mouseCoords.longitude
+        props.terria.mainViewer._lastViewer.scene.map._events.click[0].fn =
+          function (e) {
+            console.log("new location");
+            newPickLocation(e);
+            window.currentLatLong = {
+              latitude: props.terria.leaflet.mouseCoords.latitude,
+              longitude: props.terria.leaflet.mouseCoords.longitude
+            };
+            console.log(window.currentLatLong);
+            sendEventToDevice("onClick");
           };
-          console.log(window.currentLatLong);
-          sendEventToDevice("onClick");
-        };
       } else if (next) {
         next(next);
       }
     },
-    move: function(next) {
+    move: function (next) {
       if (
         props.terria.mainViewer._lastViewer &&
         props.terria.mainViewer._lastViewer.scene &&
@@ -78,23 +77,22 @@ export default function UserInterface(props) {
       ) {
         var newPickLocation =
           props.terria.mainViewer._lastViewer.scene.map._events.move[0].fn;
-        props.terria.mainViewer._lastViewer.scene.map._events.move[0].fn = function(
-          e
-        ) {
-          console.log("move map");
-          newPickLocation(e);
-          window.currentLatLong = {
-            latitude: props.terria.leaflet.mouseCoords.latitude,
-            longitude: props.terria.leaflet.mouseCoords.longitude
+        props.terria.mainViewer._lastViewer.scene.map._events.move[0].fn =
+          function (e) {
+            console.log("move map");
+            newPickLocation(e);
+            window.currentLatLong = {
+              latitude: props.terria.leaflet.mouseCoords.latitude,
+              longitude: props.terria.leaflet.mouseCoords.longitude
+            };
+            console.log(window.currentLatLong);
+            sendEventToDevice("move");
           };
-          console.log(window.currentLatLong);
-          sendEventToDevice("move");
-        };
       } else if (next) {
         next(next);
       }
     },
-    zoomend: function(next) {
+    zoomend: function (next) {
       if (
         props.terria.mainViewer._lastViewer &&
         props.terria.mainViewer._lastViewer.scene &&
@@ -104,18 +102,17 @@ export default function UserInterface(props) {
       ) {
         var newPickLocation =
           props.terria.mainViewer._lastViewer.scene.map._events.zoomend[0].fn;
-        props.terria.mainViewer._lastViewer.scene.map._events.zoomend[0].fn = function(
-          e
-        ) {
-          console.log("zoomend map");
-          newPickLocation(e);
-          window.currentLatLong = {
-            latitude: props.terria.leaflet.mouseCoords.latitude,
-            longitude: props.terria.leaflet.mouseCoords.longitude
+        props.terria.mainViewer._lastViewer.scene.map._events.zoomend[0].fn =
+          function (e) {
+            console.log("zoomend map");
+            newPickLocation(e);
+            window.currentLatLong = {
+              latitude: props.terria.leaflet.mouseCoords.latitude,
+              longitude: props.terria.leaflet.mouseCoords.longitude
+            };
+            console.log(window.currentLatLong);
+            sendEventToDevice("zoomend");
           };
-          console.log(window.currentLatLong);
-          sendEventToDevice("zoomend");
-        };
       } else if (next) {
         next(next);
       }
@@ -126,8 +123,8 @@ export default function UserInterface(props) {
     for (const key in eventArray) {
       if (Object.hasOwnProperty.call(eventArray, key)) {
         const element = eventArray[key];
-        const newFunc = function(next) {
-          setTimeout(function() {
+        const newFunc = function (next) {
+          setTimeout(function () {
             element(next);
           }, 1000);
         };
@@ -138,11 +135,15 @@ export default function UserInterface(props) {
 
   triggerAllEvents();
 
-  props.terria.locationService = function(zoomToLocation) {
+  props.terria.locationService = function (zoomToLocation) {
     /*
-    My location code
-     */
-    window.zoomToMyLocation = function(latitude, longitude, error = undefined) {
+      My location code
+       */
+    window.zoomToMyLocation = function (
+      latitude,
+      longitude,
+      error = undefined
+    ) {
       if (latitude !== undefined && longitude !== undefined) {
         zoomToLocation({
           coords: {
@@ -154,7 +155,6 @@ export default function UserInterface(props) {
         //Show alert
       }
     };
-
     function post(url) {
       return new Promise((resolve, reject) => {
         const req = new XMLHttpRequest();
@@ -163,13 +163,13 @@ export default function UserInterface(props) {
           req.status === 200
             ? resolve(req.response)
             : reject(Error(req.statusText));
-        req.onerror = e => reject(Error(`Network Error: ${e}`));
+        req.onerror = (e) => reject(Error(`Network Error: ${e}`));
         req.send();
       });
     }
 
     post("./getLocation")
-      .then(result => {
+      .then((result) => {
         console.log("getLocation", result);
         result = JSON.parse(result);
         if (result.latitude !== undefined && result.longitude !== undefined) {
@@ -183,7 +183,7 @@ export default function UserInterface(props) {
           alert("Error in getting location");
         }
       })
-      .catch(err => {
+      .catch((err) => {
         // Do stuff on error...
         alert("Error in calling network call");
       });
@@ -202,20 +202,19 @@ export default function UserInterface(props) {
   };
 
   let myLocation = null;
-
   /*
-    Go to coordinate code
-     */
-  props.terria.gotoCoordinate = function(gotoCoordinate, that) {
+      Go to coordinate code
+       */
+  props.terria.gotoCoordinate = function (gotoCoordinate, that) {
     myLocation = that;
-    window.gotoCoordinate = function(latitude, longitude) {
+    window.gotoCoordinate = function (latitude, longitude) {
       gotoCoordinate(latitude, longitude, myLocation);
     };
   };
 
-  props.terria.getCenterLatLong = function(getCenterLatLong, that) {
+  props.terria.getCenterLatLong = function (getCenterLatLong, that) {
     myLocation = that;
-    window.getCenterLatLong = function() {
+    window.getCenterLatLong = function () {
       return getCenterLatLong(myLocation);
     };
   };
@@ -255,7 +254,7 @@ export default function UserInterface(props) {
       }
     }
   }
-  window.selectBaseMap = function(mapJson) {
+  window.selectBaseMap = function (mapJson) {
     const tmpJSON = JSON.parse(mapJson);
     const baseMap = getBaseMap(tmpJSON.maptype);
     props.terria.mainViewer.setBaseMap(baseMap.item);
@@ -268,21 +267,22 @@ export default function UserInterface(props) {
     }
   };
 
-  window.changeTimeline = function(flag) {
+  window.changeTimeline = function (flag) {
     runInAction(() => {
       if (flag) {
-        props.terria.timelineStack.defaultTimeVarying = new DefaultTimelineModel();
+        props.terria.timelineStack.defaultTimeVarying =
+          new DefaultTimelineModel();
       } else {
         props.terria.timelineStack.defaultTimeVarying = undefined;
       }
     });
   };
-  window.mapQuality = function(val) {
+  window.mapQuality = function (val) {
     runInAction(() => {
       props.terria.baseMaximumScreenSpaceError = val || 0;
     });
   };
-  window.selectViewer = function(viewer) {
+  window.selectViewer = function (viewer) {
     runInAction(() => {
       const mainViewer = props.terria.mainViewer;
       if (viewer === "3d" || viewer === "3dsmooth") {
@@ -303,8 +303,16 @@ export default function UserInterface(props) {
   return (
     <StandardUserInterface {...props} version={version}>
       <MenuLeft>
-        <MenuItem caption="About" href="about.html" key="about-link" />
-        <RelatedMaps viewState={props.viewState} />
+        {aboutButtonHrefUrl ? (
+          <MenuItem
+            caption="About"
+            href={aboutButtonHrefUrl}
+            key="about-link"
+          />
+        ) : null}
+        {relatedMaps && relatedMaps.length > 0 ? (
+          <RelatedMaps relatedMaps={relatedMaps} />
+        ) : null}
       </MenuLeft>
       <ExperimentalMenu>
         {/* <If condition={isBrowserSupportedAV()}>

@@ -2,8 +2,10 @@ node_modules/
 .idea/
 wwwroot/build/
 wwwroot/doc/
+wwwroot/index.html
 npm-debug.log
 version.js
+version.json
 wwwroot/init/nm.json
 datasources/00_National_Data_Sets.json
 .DS_Store
@@ -22,4 +24,6 @@ deploy/packages/
 deploy/work/
 packages/
 pancake/
-*.rar
+yarn-error.log
+
+package-lock.json

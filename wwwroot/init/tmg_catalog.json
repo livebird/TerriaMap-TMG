@@ -6,6 +6,13 @@
       "type": "group",
       "name": "TechMavenGeospatial",
       "members": [
+          {
+            "name": "3d building",
+            "type": "3d-tiles",
+            "description": "OSM_3D_Buildings",
+            "ionAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJiOTk0YmU4MS0yZTg0LTRkYmItYmQ1OS1lMTZhNGJjZTQ2YzUiLCJpZCI6MzIzODcsInNjb3BlcyI6WyJhc2wiLCJhc3IiLCJwciJdLCJpYXQiOjE1OTY5MDQxNTl9.XU14W3cDwFepns92YVI9fE2EB_5_u2Gwx9H9RLbcMmw",
+            "ionAssetId": 96188
+          },
         {
           "type": "esri-mapServer",
           "name": "USGSImageryOnly",
