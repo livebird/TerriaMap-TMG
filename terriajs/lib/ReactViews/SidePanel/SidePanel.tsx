@@ -132,8 +132,6 @@ const SidePanel = observer<React.FC<SidePanelProps>>(
     const onAddDataClicked: React.MouseEventHandler<HTMLButtonElement> = (
       e
     ) => {
-      console.log("window", window);
-
       e.stopPropagation();
       viewState.setTopElement(ExplorerWindowElementName);
       viewState.openAddData();
@@ -145,6 +143,10 @@ const SidePanel = observer<React.FC<SidePanelProps>>(
       e.stopPropagation();
       viewState.setTopElement(ExplorerWindowElementName);
       viewState.openUserData();
+    };
+    window.onAddDataClicked = () => {
+      viewState.setTopElement(ExplorerWindowElementName);
+      viewState.openAddData();
     };
 
     const addData = t("addData.addDataBtnText");
