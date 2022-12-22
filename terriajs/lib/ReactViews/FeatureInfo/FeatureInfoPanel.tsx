@@ -437,19 +437,6 @@ class FeatureInfoPanel extends React.Component<Props> {
 
     return (
       <div className={Styles.location}>
-        <span>Lat / Lon&nbsp;</span>
-        <span>
-          {pretty.latitude + ", " + pretty.longitude}
-          {!this.props.printView && (
-            <button
-              type="button"
-              onClick={pinClicked}
-              className={locationButtonStyle}
-            >
-              <Icon glyph={Icon.GLYPHS.location} />
-            </button>
-          )}
-        </span>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div>
             <span>Lat / Lon&nbsp;</span>
