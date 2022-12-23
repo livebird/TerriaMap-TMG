@@ -134,12 +134,12 @@ const MobileMenu = observer(
                 viewState={this.props.viewState}
               />
             </div>
-            <div onClick={this.hideMenu}>
+            {/* <div onClick={this.hideMenu}>
               <SharePanel
                 terria={this.props.terria}
                 viewState={this.props.viewState}
               />
-            </div>
+            </div> */}
             <For each="menuItem" of={this.props.menuItems}>
               <div
                 onClick={this.hideMenu}

@@ -105,7 +105,7 @@ const MenuBar = observer((props) => {
             </li>
           </ul>
         </If>
-        <ul className={classNames(Styles.menu)}>
+        {/* <ul className={classNames(Styles.menu)}>
           <li className={Styles.menuItem}>
             <SharePanel
               storyEnabled={false}
@@ -114,7 +114,7 @@ const MenuBar = observer((props) => {
               animationDuration={props.animationDuration}
             />
           </li>
-        </ul>
+        </ul> */}
         <If condition={!viewState.useSmallScreenInterface}>
           <For each="element" of={menuItems} index="i">
             <li className={Styles.menuItem} key={i}>
