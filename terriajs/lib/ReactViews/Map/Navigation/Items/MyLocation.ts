@@ -57,7 +57,8 @@ class MyLocation extends MapNavigationItemController {
   @action.bound
   getLocation() {
     const useJSNavigator = this.terria.configParameters.useJSNavigator;
-    if (useJSNavigator) {
+    //if (useJSNavigator) {
+    if (true) {
       const t = i18next.t.bind(i18next);
       if (navigator.geolocation) {
         const options = {
