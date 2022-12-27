@@ -1,41 +1,38 @@
 {
-    "initializationUrls": [
-        "tmg_catalog"
+  "initializationUrls": ["tmg_catalog"],
+  "parameters": {
+    "bingMapsKey": "ApcSMxewmYb13LMEOG_18AcoxUyUP3Y9PtF114lb07t_n7Wi0wGTV8WoJmjXSI8V",
+    "googleUrlShortenerKey": null,
+    "googleAnalyticsKey": null,
+    "googleAnalyticsOptions": null,
+    "disclaimer": {
+      "text": "Disclaimer: This map must not be used for navigation or precise spatial analysis",
+      "url": ""
+    },
+    "printDisclaimer": {
+      "text": "",
+      "url": ""
+    },
+    "appName": "MapData.World &  MapDataVisualization.xyz by Tech Maven Geospatial, LLC",
+    "brandBarElements": [
+      "",
+      "<a target=\"_blank\" href=\"#\"><img src=\"images/logo.png\" height=\"52\" title=\"Version: {{version}}\" /></a>",
+      ""
     ],
-    "parameters": {
-        "bingMapsKey": "ApcSMxewmYb13LMEOG_18AcoxUyUP3Y9PtF114lb07t_n7Wi0wGTV8WoJmjXSI8V",
-        "googleUrlShortenerKey": null,
-        "googleAnalyticsKey": null,
-        "googleAnalyticsOptions": null,
-        "disclaimer": {
-            "text": "Disclaimer: This map must not be used for navigation or precise spatial analysis",
-            "url": ""
-        },
-        "printDisclaimer": {
-            "text": "",
-            "url": ""
-        },
-        "appName": "MapData.World &  MapDataVisualization.xyz by Tech Maven Geospatial, LLC",
-        "brandBarElements": [
-            "",
-            "<a target=\"_blank\" href=\"#\"><img src=\"images/logo.png\" height=\"52\" title=\"Version: {{version}}\" /></a>",
-            ""
-        ],
-        "supportEmail": "support+mapsdataworld@techmaven.net",
-        "proj4ServiceBaseUrl": "proj4def/",
-        "feedbackUrl": "",
-        "mobileDefaultViewerMode": "2d",
-        "experimentalFeatures": true,
-        "storyEnabled": false,
-        "shareEnabled": false,
-        "relatedMapsEnabled": false,
-        "aboutEnabled": false,
-        "useJSNavigator": true,
-        "hideTerriaLogo": true,
-        "useCesiumIonTerrain":false,
-        "useCesiumIonBingImagery": false,
-        "cesiumIonAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MDI2MDQ1OS04ZjY2LTQwNmItYjlkNC00YTliMTFiZTY0OGUiLCJpZCI6NDE0Mywic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTU0MDAwNzU1Mn0.MpM11pm6g5Szp1ywvcEbRSFlZcp_Ab6H1tfKpzw-N4U",
-        
-    }
+    "supportEmail": "support+mapsdataworld@techmaven.net",
+    "proj4ServiceBaseUrl": "proj4def/",
+    "feedbackUrl": "",
+    "mobileDefaultViewerMode": "3d",
+    "viewerMode": "3d",
+    "experimentalFeatures": true,
+    "storyEnabled": false,
+    "shareEnabled": false,
+    "relatedMapsEnabled": false,
+    "aboutEnabled": false,
+    "useJSNavigator": true,
+    "hideTerriaLogo": true,
+    "useCesiumIonTerrain": false,
+    "useCesiumIonBingImagery": false,
+    "cesiumIonAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MDI2MDQ1OS04ZjY2LTQwNmItYjlkNC00YTliMTFiZTY0OGUiLCJpZCI6NDE0Mywic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTU0MDAwNzU1Mn0.MpM11pm6g5Szp1ywvcEbRSFlZcp_Ab6H1tfKpzw-N4U"
+  }
 }
-
