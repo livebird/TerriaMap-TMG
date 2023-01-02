@@ -18,6 +18,8 @@ import TimeFilterMixin from "../../ModelMixins/TimeFilterMixin";
 import CompositeCatalogItem from "../../Models/Catalog/CatalogItems/CompositeCatalogItem";
 import { BaseModel } from "../../Models/Definition/Model";
 import TerriaFeature from "../../Models/Feature/Feature";
+var converter = require("coordinator");
+
 import {
   addMarker,
   isMarkerVisible,
@@ -66,6 +68,9 @@ class FeatureInfoPanel extends React.Component<Props> {
     );
   }
   MGRSString(Lat: number, Long: number) {
+    var fn = converter("latlong", "mgrs");
+    return fn(Lat, Long, 5);
+
     if (Lat < -80) return "Too far South";
     if (Lat > 84) return "Too far North";
     var c = 1 + Math.floor((Long + 180) / 6);
@@ -420,9 +425,12 @@ class FeatureInfoPanel extends React.Component<Props> {
     if (cartographic === undefined) {
       return <></>;
     }
+    //alert(cartographic.longitude);
     const latitude = CesiumMath.toDegrees(cartographic.latitude);
     const longitude = CesiumMath.toDegrees(cartographic.longitude);
+
     const pretty = prettifyCoordinates(longitude, latitude);
+
     // this.locationUpdated(longitude, latitude);
     const mgrs = this.MGRSString(latitude, longitude);
     const gard = this.latLng2GARS(latitude, longitude);
@@ -441,7 +449,7 @@ class FeatureInfoPanel extends React.Component<Props> {
           <div>
             <span>Lat / Lon&nbsp;</span>
             <span>
-              {pretty.latitude + ", " + pretty.longitude}
+              {latitude.toFixed(6) + ", " + longitude.toFixed(6)}
               {!this.props.printView && (
                 <button
                   type="button"

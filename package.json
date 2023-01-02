@@ -24,13 +24,15 @@
     "url": "http://github.com/TerriaJS/TerriaMap"
   },
   "dependencies": {
+
+    "coordinator": "^0.5.0",
     "mobx": "^4.15.4",
     "pm2": "^3.2.2",
+    "react-device-detect": "^2.0.1",
+    "terriajs": "./terriajs",
     "terriajs-plugin-api": "0.0.1-alpha.6",
     "terriajs-plugin-sample": "0.0.1-alpha.7",
-    "terriajs-server": "^3.3.4",
-    "react-device-detect": "^2.0.1",
-    "terriajs": "./terriajs"
+    "terriajs-server": "^3.3.4"
   },
   "config": {
     "awsProfile": "terria",

@@ -31,8 +31,8 @@
     "aboutEnabled": false,
     "useJSNavigator": true,
     "hideTerriaLogo": true,
-    "useCesiumIonTerrain": false,
-    "useCesiumIonBingImagery": false,
+    "useCesiumIonTerrain": true,
+    "useCesiumIonBingImagery": true,
     "cesiumIonAccessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MDI2MDQ1OS04ZjY2LTQwNmItYjlkNC00YTliMTFiZTY0OGUiLCJpZCI6NDE0Mywic2NvcGVzIjpbImFzciIsImdjIl0sImlhdCI6MTU0MDAwNzU1Mn0.MpM11pm6g5Szp1ywvcEbRSFlZcp_Ab6H1tfKpzw-N4U"
   }
 }
